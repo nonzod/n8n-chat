@@ -1,4 +1,4 @@
-// src/plugins/chat.ts (aggiornato con debug)
+// src/plugins/chat.ts
 import { v4 as uuidv4 } from 'uuid';
 import type { Plugin } from 'vue';
 import { computed, nextTick, ref } from 'vue';
@@ -7,12 +7,20 @@ import * as api from '@n8n/chat/api';
 import { ChatOptionsSymbol, ChatSymbol, localStorageSessionIdKey } from '@n8n/chat/constants';
 import { chatEventBus } from '@n8n/chat/event-buses';
 import type { ChatMessage, ChatOptions } from '@n8n/chat/types';
+import { hasPrivacyConsent } from '@n8n/chat/utils';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const ChatPlugin: Plugin<ChatOptions> = {
   install(app, options) {
     // Log per debug
     console.log('ChatPlugin received options:', options);
+    
+    // Controlla se il consenso alla privacy è già stato fornito
+    // e imposta requirePrivacyConsent a false se il cookie è presente
+    if (options.requirePrivacyConsent && hasPrivacyConsent()) {
+      console.log('Privacy consent already given, skipping consent request');
+      options.requirePrivacyConsent = false;
+    }
     
     app.provide(ChatOptionsSymbol, options);
 
