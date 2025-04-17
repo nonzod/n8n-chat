@@ -32,7 +32,7 @@ export const WithPrivacyConsent: Story = {
   name: 'With Privacy Consent',
   args: {
     webhookUrl: 'http://localhost:5678/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-    mode: 'fullscreen',
+    mode: 'window',
     showWelcomeScreen: true,  // Importante per mostrare la schermata di benvenuto
     requirePrivacyConsent: true,
     privacyPolicyUrl: 'https://example.com/privacy',
@@ -52,7 +52,7 @@ export const WithoutPrivacyConsent: Story = {
   name: 'Without Privacy Consent',
   args: {
     webhookUrl: 'http://localhost:5678/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-    mode: 'fullscreen',
+    mode: 'window',
     showWelcomeScreen: true,
     requirePrivacyConsent: false,
     i18n: {
